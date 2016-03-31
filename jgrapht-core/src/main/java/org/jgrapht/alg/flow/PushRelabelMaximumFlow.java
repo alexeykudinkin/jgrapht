@@ -214,7 +214,7 @@ public class PushRelabelMaximumFlow<V, E> extends MaximumFlowAlgorithmBase<V,E> 
         for (EdgeExtension ex : source.<EdgeExtension>getOutgoing()) {
             pushFlowThrough(ex, ex.capacity);
 
-            if (ex.getTarget().prototype != sink.prototype)
+            if (!ex.getTarget().prototype.equals(sink.prototype))
                 active.offer(ex.<VertexExtension>getTarget());
         }
     }
@@ -271,7 +271,7 @@ public class PushRelabelMaximumFlow<V, E> extends MaximumFlowAlgorithmBase<V,E> 
             for (;;) {
                 for (EdgeExtension ex : ux.<EdgeExtension>getOutgoing()) {
                     if (isAdmissible(ex)) {
-                        if (ex.getTarget().prototype != sink && ex.getTarget().prototype != source)
+                        if (!ex.getTarget().prototype.equals(sink) && !ex.getTarget().prototype.equals(source))
                             active.offer(ex.<VertexExtension>getTarget());
 
                         // Check whether we're rip off the excess
